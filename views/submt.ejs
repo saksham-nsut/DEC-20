@@ -1,0 +1,296 @@
+<link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+  crossorigin="anonymous"
+/>
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+
+<link href="css/main.css" rel="stylesheet" media="all" />
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
+/>
+
+<style>
+  body {
+    background-color: #0e0e11;
+  }
+
+  .contact {
+    padding: 4%;
+    height: 400px;
+  }
+
+  .col-md-3 {
+    background: #232323;
+    padding: 4%;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+  }
+
+  .contact-info {
+    margin-top: 10%;
+  }
+
+  .contact-info img {
+    margin-bottom: 15%;
+  }
+
+  .contact-info h2 {
+    margin-bottom: 10%;
+  }
+
+  .col-md-9 {
+    background: #fff;
+    padding: 3%;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+  }
+
+  .contact-form label {
+    font-weight: 600;
+  }
+
+  .contact-form button {
+    background: #25274d;
+    color: #fff;
+    font-weight: 600;
+    width: 25%;
+  }
+
+  .contact-form button:focus {
+    box-shadow: none;
+  }
+
+  .link1:hover {
+    background-color: #232323;
+  }
+
+  #foot {
+    display: none;
+  }
+</style>
+
+<script>
+  function switchVisible() {
+    if (document.getElementById("btn1")) {
+      if (document.getElementById("form2").style.display == "none") {
+        document.getElementById("form2").style.display = "block";
+        document.getElementById("form1").style.display = "none";
+      }
+    }
+  }
+</script>
+
+<body>
+  <nav
+    class="navbar navbar-expand-lg navbar-dark static-top"
+    style="background-color: #0e0e11; width: 100%"
+  >
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img
+          src="../public/assets/Ecell-LOGO-01.png"
+          style="max-height: 50px"
+          alt=""
+        />
+        <br />
+      </a>
+
+      <div class="nav-links">
+        <a
+          class="link1"
+          style="color: white; padding: 10px; text-decoration: none"
+          href="/homeboard"
+          ><b>Home</b></a
+        >
+        <a
+          class="link1"
+          style="color: white; padding: 10px; text-decoration: none"
+          href="/dashboard"
+          ><b>Dashboard</b></a
+        >
+        <a
+          class="link1"
+          style="color: white; padding: 10px; text-decoration: none"
+          href="/users/logout"
+          ><b>Logout</b></a
+        >
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="card" style="margin-top: 80px; margin-bottom: 80px" id="form1">
+      <div class="card-body">
+        <h6
+          class="card-subtitle mb-2"
+          style="font-size: 2.5rem; padding-top: 20px; padding-bottom: 20px"
+        >
+          <b>Rules for submission of files:</b>
+        </h6>
+        <p class="card-text">
+          <b>1. Make seperate Google Drive folder for each task.</b>
+        </p>
+        <p class="card-text">
+          <b>2. Share the link of each folder! (make sure it's public)</b>
+        </p>
+        <p class="card-text">
+          <b
+            >3. Each folder should have the name like the format specified
+            (team_college_email Id_Task Name).
+          </b>
+        </p>
+        <p class="card-text">
+          <b>4. Email id should be the one linked with DEC portal account.</b>
+        </p>
+        <p class="card-text">
+          <b
+            >5. Once you submit your files/folder Gdrive link no further editing
+            is allowed to that folder.</b
+          >
+        </p>
+        <p class="card-text">
+          <b
+            >6. Any violation of these rules will result in disqualification of
+            the team.
+          </b>
+        </p>
+
+        <p style="color: brown">
+          <b><i>I have read and understood the rules!</i></b>
+        </p>
+
+        <button
+          id="btn1"
+          value="Click"
+          onclick="switchVisible();"
+          type="submit"
+          style="
+            background-color: #25274d;
+            color: white;
+            padding-left: 25px;
+            padding-right: 25px;
+          "
+          class="btn btn-default"
+        >
+          <b>Submit</b>
+        </button>
+      </div>
+    </div>
+    <div class="card" style="margin-top: 80px; margin-bottom: 80px">
+      <div class="card-body" id="form2" style="display: none">
+        <div class="contact-form">
+          <form
+            class="gform pure-form pure-form-stacked"
+            method="POST"
+            action="https://script.google.com/macros/s/AKfycbzZVkclxHGSUfS910nPhPdstAA269cy9BzNJ9gSZQ/exec"
+          >
+            <div class="form-elements1">
+              <h6
+                class="card-subtitle mb-2"
+                style="
+                  font-size: 2.5rem;
+                  padding-top: 20px;
+                  padding-bottom: 20px;
+                  text-align: center;
+                "
+              >
+                <b>Task Submission</b>
+              </h6>
+              <p style="color: brown">
+                <b><i>All fields are mandatory!</i></b>
+              </p>
+
+              <div class="form-group">
+                <label class="control-label" for="fname">Leader Name:</label>
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="fname"
+                    placeholder="Enter Name"
+                    name="Leader_name"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="email">Email:</label>
+                <div class="col-sm-10">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    placeholder="Enter email"
+                    name="email"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="lname"
+                  >Google Drive Link-</label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="Link"
+                    placeholder="Link of your submission"
+                    name="lname"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button value="Click" type="submit" class="btn btn-default">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="thankyou_message"
+              style="display: none; text-align: center"
+            >
+              <h2>
+                <em>Thanks</em> for Submission!<br />
+                We will evaluate and update score soon!
+              </h2>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script
+    src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"
+  ></script>
+
+  <script src="js/global.js"></script>
+
+  <!-- AJAX Contact Form Using -->
+  <script src="js/app.js"></script>
+  <script data-cfasync="false" src="js/form-submission-handler.js"></script>
+</body>

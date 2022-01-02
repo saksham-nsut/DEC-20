@@ -1,0 +1,311 @@
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link
+  href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+  rel="stylesheet"
+  id="bootstrap-css"
+/>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link href="css/main.css" rel="stylesheet" media="all" />
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
+/>
+
+<link
+  rel="stylesheet"
+  href="<% if(typeof task !== 'undefined') { %> ../../public/style/home-styles.css <% } else { %> ../public/style/home-styles.css <% } %>"
+/>
+<link
+  rel="stylesheet"
+  href="<% if(typeof task !== 'undefined') { %> ../../public/style/profile-styles.css <% } else { %> ../public/style/profile-styles.css <% } %>"
+/>
+
+<style>
+  /* Nav Bar */
+  .nav {
+    height: 80px;
+    width: 100% !important;
+    background-color: #0e0e11;
+    padding-top: 20px;
+  }
+
+  .nav > .nav-header {
+    display: inline;
+  }
+
+  .nav > .nav-header > .nav-title {
+    display: inline-block;
+    font-size: 22px;
+
+    padding: 10px 10px 10px 10px;
+  }
+
+  .nav > .nav-btn {
+    display: none;
+  }
+
+  .nav > .nav-links {
+    display: inline;
+    float: right;
+    font-size: 18px;
+  }
+
+  .nav > .nav-links > a {
+    display: inline-block;
+    padding: 13px 10px 13px 10px;
+    text-decoration: none;
+    color: white;
+  }
+
+  .nav > .nav-links > a:hover {
+    background-color: #232323;
+  }
+
+  .nav > #nav-check {
+    display: none;
+  }
+
+  /* Nav Bar media Queries */
+
+  @media (max-width: 680px) {
+    .nav > .nav-btn {
+      display: inline-block;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+    }
+
+    .nav > .nav-btn > label {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      padding: 13px;
+    }
+
+    .nav > .nav-btn > label:hover,
+    .nav #nav-check:checked ~ .nav-btn > label {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .nav > .nav-btn > label > span {
+      display: block;
+      width: 25px;
+      height: 10px;
+      border-top: 2px solid white;
+    }
+
+    .nav > .nav-links {
+      position: absolute;
+      display: block;
+      width: 100%;
+      background-color: #232323;
+      height: 0px;
+      transition: all 0.3s ease-in;
+      overflow-y: hidden;
+      top: 80px;
+      left: 0px;
+    }
+
+    .nav > .nav-links > a {
+      display: block;
+      width: 100%;
+    }
+
+    .nav > #nav-check:not(:checked) ~ .nav-links {
+      height: 0px;
+    }
+
+    .nav > #nav-check:checked ~ .nav-links {
+      height: calc(100vh - 50px);
+      overflow-y: auto;
+    }
+  }
+</style>
+
+<style>
+  .task-card {
+    display: block;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+  }
+</style>
+
+<div class="container full-height-grow">
+  <div class="nav">
+    <input type="checkbox" id="nav-check" />
+    <div class="nav-header">
+      <div class="nav-title">
+        <a class="brand-logo">
+          <img
+            src="<% if(typeof task !== 'undefined') { %> ../../public/assets/Ecell-LOGO-01.png <% } else { %> ../public/assets/Ecell-LOGO-01.png <% } %>"
+          />
+          <div class="brand-logo-name">DEC</div>
+        </a>
+      </div>
+    </div>
+    <div class="nav-btn" style="padding-top: 25px">
+      <label for="nav-check">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    <div class="nav-links ml-auto">
+      <a href="/">Home</a>
+      <a href="/tasks">Tasks</a>
+      <a href="#timeline">TimeLine</a>
+      <% if(typeof user !== 'undefined'){ %>
+      <a href="/users/dashboard">Dashboard</a>
+      <a href="/users/logout">Logout</a>
+      <% } %> <% if(typeof user === 'undefined'){ %>
+      <a href="/users/login">Login</a>
+      <a href="/users/register">Register</a>
+      <% } %>
+    </div>
+  </div>
+  <br />
+  <br />
+  <br />
+
+  <div>
+    <h1 class="profile-title" style="text-align: center">
+      Add <span class="accent-text-stroke">Task</span>
+    </h1>
+    <% include ./partials/messages %>
+
+    <form
+      action="<% if(typeof task !== 'undefined') { %> 
+        /users/editTask/<%= task._id %>?_method=PUT 
+        <% } else { %> 
+          /users/addTask 
+        <% } %>"
+      method="POST"
+      class="p-5"
+    >
+      <div class="row">
+        <div class="col-md-2">
+          <label class="mt-3" for="name">Task Name : </label>
+        </div>
+        <div class="col-md-8">
+          <input
+            type="text"
+            class="leader-name coves-font box-border"
+            style="
+              font-size: large;
+              background-color: #0e0e11;
+              color: #fff;
+              width: 50vw;
+            "
+            placeholder="Task Name"
+            name="name"
+            required
+            value="<% if(typeof task !== 'undefined') { %> <%= task.name %> <% } %>"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <label class="mt-3" for="name">Description : </label>
+        </div>
+        <div class="col-md-8">
+          <textarea
+            type="text"
+            class="leader-name coves-font box-border"
+            style="
+              font-size: large;
+              background-color: #0e0e11;
+              color: #fff;
+              width: 50vw;
+              overflow: hidden;
+            "
+            name="description"
+            placeholder="Description..."
+            required
+          >
+<% if(typeof task !== 'undefined') { %> <%= task.description %> <% } %></textarea
+          >
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <label class="mt-3" for="name">Guidelines : </label>
+        </div>
+        <div class="col-md-8">
+          <textarea
+            type="text"
+            class="leader-name coves-font box-border"
+            placeholder="Guidelines..."
+            style="
+              font-size: large;
+              background-color: #0e0e11;
+              color: #fff;
+              width: 50vw;
+            "
+            name="guidelines"
+            required
+          >
+<% if(typeof task !== 'undefined') { %> <%= task.guidelines %> <% } %></textarea
+          >
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <label class="mt-3" for="name">Points : </label>
+        </div>
+        <div class="col-md-8">
+          <input
+            type="text"
+            class="leader-name coves-font box-border"
+            style="
+              font-size: large;
+              background-color: #0e0e11;
+              color: #fff;
+              width: 50vw;
+            "
+            placeholder="Points"
+            name="points"
+            required
+            value="<% if(typeof task !== 'undefined') { %> <%= task.points %> <% } %>"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <label class="mt-3" for="name">Deadline : </label>
+        </div>
+        <div class="col-md-8">
+          <input
+            type="date"
+            class="leader-name coves-font box-border"
+            style="color: black"
+            name="deadline"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col">
+          <button
+            class="btn know-more"
+            style="margin: 0 !important; width: 62vw !important; display: block"
+            type="submit"
+          >
+            Add Task
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

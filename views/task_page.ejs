@@ -1,0 +1,274 @@
+<link rel="stylesheet" href="../../../public/style/tasks-styles.css" />
+<link rel="stylesheet" href="../../../public/style/home-styles.css" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<style>
+  /* Nav Bar */
+  .nav {
+    height: 80px;
+    width: 100% !important;
+    background-color: #0e0e11;
+    padding-top: 20px;
+  }
+
+  .nav > .nav-header {
+    display: inline;
+  }
+
+  .nav > .nav-header > .nav-title {
+    display: inline-block;
+    font-size: 22px;
+
+    padding: 10px 10px 10px 10px;
+  }
+
+  .nav > .nav-btn {
+    display: none;
+  }
+
+  .nav > .nav-links {
+    display: inline;
+    float: right;
+    font-size: 18px;
+  }
+
+  .nav > .nav-links > a {
+    display: inline-block;
+    padding: 13px 10px 13px 10px;
+    text-decoration: none;
+    color: white;
+  }
+
+  .nav > .nav-links > a:hover {
+    background-color: #232323;
+  }
+
+  .nav > #nav-check {
+    display: none;
+  }
+
+  /* Nav Bar media Queries */
+
+  @media (max-width: 680px) {
+    .nav > .nav-btn {
+      display: inline-block;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+    }
+
+    .nav > .nav-btn > label {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      padding: 13px;
+    }
+
+    .nav > .nav-btn > label:hover,
+    .nav #nav-check:checked ~ .nav-btn > label {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .nav > .nav-btn > label > span {
+      display: block;
+      width: 25px;
+      height: 10px;
+      border-top: 2px solid white;
+    }
+
+    .nav > .nav-links {
+      position: absolute;
+      display: block;
+      width: 100%;
+      background-color: #232323;
+      height: 0px;
+      transition: all 0.3s ease-in;
+      overflow-y: hidden;
+      top: 80px;
+      left: 0px;
+    }
+
+    .nav > .nav-links > a {
+      display: block;
+      width: 100%;
+    }
+
+    .nav > #nav-check:not(:checked) ~ .nav-links {
+      height: 0px;
+    }
+
+    .nav > #nav-check:checked ~ .nav-links {
+      height: calc(100vh - 50px);
+      overflow-y: auto;
+    }
+  }
+</style>
+
+<div class="container full-height-grow">
+  <% include ./partials/nav %>
+
+  <section class="tasks-main-section">
+    <% if(user && user.isAdmin){ %>
+    <div style="margin-left: auto">
+      <form action="/users/editTask/<%= task._id %>" method="GET" style="display: inline">
+        <button
+          style="background: none; border: none; padding: 0; outline: none"
+          type="submit"
+        >
+          <i
+            class="fa fa-pencil"
+            aria-hidden="true"
+            style="
+              font-size: 25px;
+              margin-right: 10px;
+              color: orange;
+              background-color: #000;
+              padding: 10px;
+              border-radius: 10px;
+            "
+          >
+          </i>
+        </button>
+      </form>
+      <form action="<%= taskDeleteAction %>" method="POST" style="display: inline">
+        <button
+          style="background: none; border: none; padding: 0; outline: none"
+          type="submit"
+        >
+          <i
+            class="fa fa-trash"
+            aria-hidden="true"
+            style="
+              font-size: 25px;
+              color: orange;
+              background-color: #000;
+              padding: 10px;
+              border-radius: 10px;
+            "
+          >
+          </i>
+        </button>
+      </form>
+    </div>
+    <% } %>
+    <div class="task-deadline-container">
+      <h3 class="task-deadline">Deadline: <%= endtime %></h3>
+    </div>
+    <div class="points-container">
+      <h3 class="task-points">Points : <%= task.points %></h3>
+    </div>
+    <div class="task-title-container">
+      <h2 class="task-title coves-font"><%= task.name %></h2>
+    </div>
+    <div class="task-details">
+      <h3 class="description-title coves-font">Description</h3>
+      <h4 class="task-description-text coves-font task-info">
+        <%= task.description %>
+      </h4>
+      <h3 class="description-title coves-font">Guidelines</h3>
+      <h4 class="task-guidelines-text coves-font task-info">
+        <%= task.guidelines %>
+      </h4>
+
+      <% if(typeof user === 'undefined'){ %>
+      <div>
+        <br />
+        <br />
+        <br />
+        <h2 class="workflow-heading coves-font">
+          <b>Login to see further Rules and Submit Tasks</b>
+        </h2>
+        <div class="task-container" style="text-align: center">
+          <div
+            style="
+              width: 50vw;
+              border: 2px solid brown;
+              padding: 5vw;
+              margin: 20px;
+              border-radius: 10px;
+            "
+          >
+            <div class="input-group">
+              <button
+                class="btn know-more"
+                style="margin: 0 !important; width: 30vw !important"
+                onclick="location.href='/users/login'"
+              >
+                LOGIN
+              </button>
+            </div>
+
+            <div class="input-group">
+              <button
+                class="btn know-more"
+                style="width: 30vw !important"
+                onclick="location.href='/users/login'"
+              >
+                REGISTER
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } else { %>
+      <div class="button-container">
+        <label
+          for="myfile"
+          style="display: block; margin-bottom: 20px; margin-top: 20px"
+          >Paste the url of the file (.pdf/pptx/jpg/png):</label
+        >
+        <% if(prevSub !== null) { %>
+        <form action="<%= deleteAction %>" method="POST">
+          <label
+            for="myfile"
+            style="
+              display: block;
+              margin-bottom: 20px;
+              margin-top: 20px;
+              font-size: medium;
+            "
+            >Your previous submission is :<a
+              target="_blank"
+              href="<%= prevSub %>"
+              style="color: cornflowerblue"
+            >
+              <%= prevSub %></a
+            >
+            <button
+              style="background: none; border: none; padding: 0; outline: none"
+              type="submit"
+            >
+              <i
+                class="fa fa-trash"
+                aria-hidden="true"
+                style="font-size: 25px; margin: 10px"
+              >
+              </i>
+            </button>
+          </label>
+        </form>
+        <% } %>
+        <form method="POST" action="<%= action %>">
+          <input
+            class="leader-name coves-font box-border"
+            type="text"
+            id="file"
+            name="file"
+            style="width: 40vw; color: black; margin-left: 0 !important"
+            placeholder="Paste URL"
+          />
+          <button
+            type="submit"
+            class="submit-button"
+            style="text-align: center; margin: auto"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+      <% } %>
+    </div>
+  </section>
+</div>

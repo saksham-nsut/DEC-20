@@ -1,0 +1,206 @@
+<link rel="stylesheet" href="../public/style/home-styles.css" />
+<link rel="stylesheet" href="../public/style/timeline-styles.css" />
+
+<style>
+  .task-card {
+    display: block;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+  }
+</style>
+
+<style>
+  /* Nav Bar */
+  .nav {
+    height: 80px;
+    width: 100% !important;
+    background-color: #0e0e11;
+    padding-top: 20px;
+  }
+
+  .nav > .nav-header {
+    display: inline;
+  }
+
+  .nav > .nav-header > .nav-title {
+    display: inline-block;
+    font-size: 22px;
+
+    padding: 10px 10px 10px 10px;
+  }
+
+  .nav > .nav-btn {
+    display: none;
+  }
+
+  .nav > .nav-links {
+    display: inline;
+    float: right;
+    font-size: 18px;
+  }
+
+  .nav > .nav-links > a {
+    display: inline-block;
+    padding: 13px 10px 13px 10px;
+    text-decoration: none;
+    color: white;
+  }
+
+  .nav > .nav-links > a:hover {
+    background-color: #232323;
+  }
+
+  .nav > #nav-check {
+    display: none;
+  }
+
+  /* Nav Bar media Queries */
+
+  @media (max-width: 680px) {
+    .nav > .nav-btn {
+      display: inline-block;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+    }
+
+    .nav > .nav-btn > label {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      padding: 13px;
+    }
+
+    .nav > .nav-btn > label:hover,
+    .nav #nav-check:checked ~ .nav-btn > label {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .nav > .nav-btn > label > span {
+      display: block;
+      width: 25px;
+      height: 10px;
+      border-top: 2px solid white;
+    }
+
+    .nav > .nav-links {
+      position: absolute;
+      display: block;
+      width: 100%;
+      background-color: #232323;
+      height: 0px;
+      transition: all 0.3s ease-in;
+      overflow-y: hidden;
+      top: 80px;
+      left: 0px;
+    }
+
+    .nav > .nav-links > a {
+      display: block;
+      width: 100%;
+    }
+
+    .nav > #nav-check:not(:checked) ~ .nav-links {
+      height: 0px;
+    }
+
+    .nav > #nav-check:checked ~ .nav-links {
+      height: calc(100vh - 50px);
+      overflow-y: auto;
+    }
+  }
+</style>
+
+<div class="container full-height-grow">
+  <% include ./partials/nav %>
+  <div class="dec-title-container">
+    <h1 class="dec-title" style="text-align: center">
+      <span class="accent-text-stroke">DEC'20</span> is here!
+    </h1>
+  </div>
+  <div class="dec-info-container">
+    <h2 style="margin-bottom: 1em; text-align: center">
+      DEC'20
+      <span class="accent-text-stroke">TASKS</span>
+    </h2>
+    <div class="dec-workflow-container">
+      <p class="dec-info coves-font para-3">
+        DEC has a total of 25 tasks that the teams would have to perform in
+        their colleges, and online, whatever suits them best. Each task would
+        have some points related to it, and proper submission would make the
+        team eligible for those points. Also, certain tasks would require an
+        on-campus round, and therefore, they must be performed accordingly. Each
+        event will contain a description, the submission pattern, and the point
+        system. At the end, total point would be calculated according to the
+        submissions. Top 8 performing teams would battle it out during the final
+        on campus round during The Entrepreneurship Summit 2020.
+      </p>
+    </div>
+
+    <% include ./partials/messages %>
+
+    <div class="tasks-container" style="text-align: center">
+      <div
+        class="task-card-container"
+        style="text-align: center; align-content: center"
+      >
+        <% for(let i = 0; i < tasks.length; i++) { %>
+        <div class="task-card box-border">
+          <h3 class="task-card-title coves-font">
+            TASK<span class="accent-color-text task-number"
+              >&nbsp; <%= (i + 1) %></span
+            >
+          </h3>
+          <p class="task-brief coves-font"><%= tasks[i].name %></p>
+
+          <div class="input-group">
+            <button
+              class="btn know-more"
+              onclick="location.href='/tasks/<%= tasks[i]._id %>'"
+            >
+              View Details
+            </button>
+          </div>
+        </div>
+        <% } %>
+      </div>
+    </div>
+
+    <% if(user && user.isAdmin){ %>
+    <div
+      class="tasks-container"
+      style="
+        border: 2px solid brown;
+        padding: 20px;
+        padding-bottom: 50px;
+        text-align: center;
+      "
+    >
+      <div class="tasks-title-container">
+        <h1 class="tasks-title">
+          Admin <span class="accent-text-stroke">Rights</span>
+        </h1>
+      </div>
+
+      <div>
+        <div class="task-container" style="text-align: center">
+          <div style="width: 50vw; margin: auto">
+            <p class="dec-info coves-font">
+              Add a new task in the database (will reflect to all users!)
+            </p>
+
+            <button
+              class="btn know-more"
+              style="margin: 0 !important; width: 30vw !important"
+              onclick="location.href='/users/addTask'"
+            >
+              Create a New Task
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+  </div>
+</div>

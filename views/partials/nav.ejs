@@ -1,0 +1,37 @@
+<div class="nav">
+  <input type="checkbox" id="nav-check" />
+  <div class="nav-header">
+    <div class="nav-title">
+      <a class="brand-logo">
+        <img src="../public/assets/Ecell-LOGO-01.png" />
+        <div class="brand-logo-name">DEC</div>
+      </a>
+    </div>
+  </div>
+  <div class="nav-btn" style="padding-top: 25px">
+    <label for="nav-check">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+  </div>
+
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/tasks">Tasks</a>
+    <a href="/#timeline">TimeLine</a>
+    <% if(typeof user !== 'undefined'){ %> <% if(!user.isAdmin){ %>
+    <a href="/users/dashboard">Dashboard</a>
+    <% } else { %>
+    <a href="/users/dashboard">Admin </a>
+    <% } %>
+    <a href="/users/logout">Logout</a>
+    <% } %> <% if(typeof user === 'undefined'){ %>
+    <a href="/users/login">Login</a>
+    <a href="/users/register">Register</a>
+    <% } %>
+  </div>
+</div>
+<br />
+<br />
+<br />
